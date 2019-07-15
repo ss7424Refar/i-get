@@ -14,12 +14,12 @@
       return {
         navLists: [
           {
-            "text" : "Basic Info",
+            "text" : "Home",
             "link" : "/"
           },
           {
-            "text" : "View Graph",
-            "link" : "/Jumbotron"
+            "text" : "Main",
+            "link" : "/main"
           }
         ],
         activeIndex : 0
@@ -36,6 +36,6 @@
 
 <style scoped>
   #siderBar {
-    margin-left: 5px;
+    margin-left: 10px;
   }
 </style>

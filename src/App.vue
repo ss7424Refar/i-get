@@ -1,31 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Head></Head>
+    <b-container-fluid>
+      <b-row>
+        <b-col md="1">
+          <side-bar></side-bar>
+        </b-col>
+        <b-col md="11">
+          <router-view/>
+        </b-col>
+      </b-row>
+    </b-container-fluid>
   </div>
 </template>
 
+<script>
+  import Head from '@/components/common/Head'
+  import SideBar from '@/components/common/SideBar'
+
+  export default {
+    name: 'App',
+    components: {
+      Head,
+      SideBar
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

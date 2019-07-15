@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="main">
     <b-button>Button</b-button>
     <b-button variant="danger">Button</b-button>
     <b-button variant="success">Button</b-button>

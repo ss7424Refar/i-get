@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="#">
         <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="Kitten">
-        Mini-Console
+        I-get
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
