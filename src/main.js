@@ -10,6 +10,9 @@ Vue.use(BootstrapVue)
 
 import './plugins/table.js'
 
+import axios from 'axios'
+Vue.prototype.$http= axios
+
 Vue.config.productionTip = false
 
 new Vue({
