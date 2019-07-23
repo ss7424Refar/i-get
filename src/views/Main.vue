@@ -1,9 +1,90 @@
 <template>
   <div id="main">
-    <b-button>Button</b-button>
-    <b-button variant="danger">Button</b-button>
-    <b-button variant="success">Button</b-button>
-    <b-button variant="outline-primary">Button</b-button>
+    <h3><b-badge variant="dark">查询条件</b-badge></h3>
+    <b-row>
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="资产编号:">
+          <b-input-group>
+            <b-form-input v-model="filter"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="资产名称:">
+          <b-input-group>
+            <b-form-input v-model="filter"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="资产序列号:">
+          <b-input-group>
+            <b-form-input v-model="filter"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="型号:">
+          <b-input-group>
+            <b-form-input v-model="filter"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="使用者:">
+          <b-input-group>
+            <b-form-input v-model="filter"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="位置:">
+          <b-input-group>
+            <b-form-input v-model="filter"></b-form-input>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="状态:">
+          <b-input-group>
+            <b-form-select v-model="statusSelected" :options="form.statusOptions"></b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="部门:">
+          <b-input-group>
+            <b-form-select v-model="departSelected" :options="form.departOptions"></b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col md="4">
+        <b-form-group label-cols-sm="2" label="课:">
+          <b-input-group>
+            <b-form-select v-model="sectionSelected" :options="form.sectionOptions"></b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col offset-md="4">
+        <b-button variant="info">查询</b-button>
+      </b-col>
+      <b-col md="7">
+        <b-button variant="primary">重置</b-button>
+      </b-col>
+    </b-row>
+
+    <hr>
+
+    <h3><b-badge variant="dark">查询结果</b-badge></h3>
     <BootstrapTable :columns="columns" :options="options"></BootstrapTable>
   </div>
 </template>
@@ -26,6 +107,42 @@
     // },
     data () {
       return {
+        statusSelected: null,
+        departSelected: null,
+        sectionSelected: null,
+        form: {
+          statusOptions: [
+            { value: null, text: '请选择' },
+            { value: '0', text: '在库' },
+            { value: '1', text: '待借出审批' },
+            { value: '2', text: '审核通过' },
+            { value: '3', text: '使用中' },
+            { value: '4', text: '待报废审批' },
+            { value: '5', text: '报废' },
+            { value: '6', text: '待删除审批' },
+          ],
+          departOptions: [
+            { value: null, text: '请选择' },
+            { value: '1884', text: 'SCD' },
+            { value: '2271', text: 'SWV' },
+            { value: '2272', text: 'PSD' },
+            { value: '2273', text: 'CUD' },
+            { value: '2274', text: 'FWD' },
+            { value: '442', text: 'SYD' },
+            { value: '462', text: 'HWD' },
+            { value: '485', text: 'MED' },
+            { value: '491', text: 'CSV' },
+            { value: '499', text: 'HWV' },
+            { value: '520', text: 'PAV' },
+            { value: '540', text: 'SSD' },
+          ],
+          sectionOptions: [
+            { value: null, text: '请选择' },
+            { value: '29', text: 'DT部' },
+            { value: '33', text: 'VT部' },
+            { value: '37', text: 'SWT部' },
+          ]
+        },
         columns: [
           {
             field: 'fixed_no',
@@ -55,10 +172,10 @@
           }
         ],
         options: {
-          search: true,
-          showColumns: true,
-          classes: 'table table-bordered table-hover table-dark table-striped table-sm',
-          url: 'http://localhost/ats-rebuild/services/MachineSever/getMachineList',
+          // search: true,
+          // showColumns: true,
+          classes: 'table table-bordered table-hover table-striped table-sm',
+          url: 'http://192.168.31.200/ats-rebuild/services/MachineSever/getMachineList',
           sidePagination: 'server',
           pagination: 'true',
           pageNumber:1,
