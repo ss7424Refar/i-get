@@ -7,7 +7,9 @@
           <side-bar></side-bar>
         </b-col>
         <b-col md="11">
-          <router-view/>
+          <transition name="fade">
+            <router-view/>
+          </transition>
         </b-col>
       </b-row>
     </b-container-fluid>
@@ -28,4 +30,10 @@
 </script>
 
 <style>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
 </style>
