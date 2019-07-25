@@ -86,6 +86,14 @@
 
     <hr>
 
+    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+      <div class="d-block text-center">
+        <h3>Hello From My Modal!</h3>
+      </div>
+      <b-button class="mt-3" variant="outline-danger" block>Close Me</b-button>
+      <b-button class="mt-2" variant="outline-warning" block>Toggle Me</b-button>
+    </b-modal>
+
     <h3><b-badge variant="dark">查询结果</b-badge></h3>
     <BootstrapTable ref="table" :columns="columns" :options="options"></BootstrapTable>
   </div>
@@ -93,20 +101,6 @@
 
 <script>
   export default {
-    // created() {
-    //   this.$http({
-    //     method:'post',
-    //     url:'http://localhost/ats-rebuild/services/MachineSever/test'
-    //   }).then((response) =>{
-    //     //这里使用了ES6的语法
-    //     console.log(response.data);
-    //     this.data = response.data;
-    //     //请求成功返回的数据
-    //   }).catch((error) =>{
-    //     //请求失败返回的数据
-    //     console.log(error);
-    //   })
-    // },
     data () {
       return {
         form: {
@@ -132,6 +126,12 @@
         ],
         departOptions: [
           { value: null, text: '请选择' },
+          { value: '29', text: 'DT部' },
+          { value: '33', text: 'VT部' },
+          { value: '37', text: 'SWT部' }
+        ],
+        sectionOptions: [
+          { value: null, text: '请选择' },
           { value: '1884', text: 'SCD' },
           { value: '2271', text: 'SWV' },
           { value: '2272', text: 'PSD' },
@@ -144,12 +144,6 @@
           { value: '499', text: 'HWV' },
           { value: '520', text: 'PAV' },
           { value: '540', text: 'SSD' },
-        ],
-        sectionOptions: [
-          { value: null, text: '请选择' },
-          { value: '29', text: 'DT部' },
-          { value: '33', text: 'VT部' },
-          { value: '37', text: 'SWT部' },
         ],
         columns: [
           {
@@ -183,14 +177,16 @@
           // search: true,
           // showColumns: true,
           classes: 'table table-bordered table-hover table-striped table-sm',
-          url: 'http://192.168.31.200/ats-rebuild/services/MachineSever/getMachineList',
+          url: 'http://localhost/ats-rebuild/services/MachineSever/getMachineList',
           sidePagination: 'server',
           pagination: 'true',
           pageNumber:1,
           pageSize: 20,
           pageList: [10, 25, 50],
-          queryParams: function (params) {
-            return params
+          queryParams: function(params) { return params },
+          onClickRow: function (row, $element, field) {
+
+            alert(1)
           }
         }
       }
@@ -198,29 +194,13 @@
     methods: {
       onSubmit: function (evt) {
         evt.preventDefault()
-        console.log(JSON.stringify(this.form))
-        let queryParams = function (params) {
-          let temp = {
-            pageSize : params.pageSize,
-            pageNumber : params.pageNumber,
-            formData: JSON.stringify(this.form)
-          };
-        }
-        this.options.queryParams(queryParams);
 
-        // 发送请求
-          this.$http({
-            method:'post',
-            url:'http://localhost/ats-rebuild/services/MachineSever/getSearchData'
-          }).then((response) =>{
-            //这里使用了ES6的语法
-            console.log(response.data);
-            this.data = response.data;
-            //请求成功返回的数据
-          }).catch((error) =>{
-            //请求失败返回的数据
-            console.log(error);
-          })
+        let formData = JSON.stringify(this.form)
+        this.options.queryParams = function (params) {
+          params.formData = formData
+          return params
+        }
+
       },
       onReset: function (evt) {
         this.form.fixed = null
@@ -232,6 +212,9 @@
         this.form.status = null
         this.form.depart = null
         this.form.section = null
+      },
+      test: function () {
+        alert(1)
       }
   }
   }
