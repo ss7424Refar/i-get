@@ -86,16 +86,142 @@
 
     <hr>
 
-    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
-      <div class="d-block text-center">
-        <h3>Hello From My Modal!</h3>
-      </div>
-      <b-button class="mt-3" variant="outline-danger" block>Close Me</b-button>
-      <b-button class="mt-2" variant="outline-warning" block>Toggle Me</b-button>
+    <b-modal v-model="modalShow" size="xl" title="具体信息" ok-only>
+      <b-row>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="资产编号:">
+            <p class="detail">{{modalInfo.fixed_no}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="资产名称:">
+            <p class="detail">{{modalInfo.MODEL_NAME}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="序列号:">
+            <p class="detail">{{modalInfo.SERIAL_NO}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="型号:">
+            <p class="detail">{{modalInfo.type}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="流水号:">
+            <p class="detail">{{modalInfo.serial_number}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="发票号:">
+            <p class="detail">{{modalInfo.invoice_no}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="购买日期:">
+            <p class="detail">{{modalInfo.purchase_date}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="发票日期:">
+            <p class="detail">{{modalInfo.invoice_date}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="保修日期:">
+            <p class="detail">{{modalInfo.warranty_date}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="实际价格:">
+            <p class="detail">{{modalInfo.actual_price}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="含税价格:">
+            <p class="detail">{{modalInfo.tax_inclusive_price}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="位置:">
+            <p class="detail">{{modalInfo.location}}</p>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="状态:">
+            <p class="detail">{{modalInfo.model_status}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="使用者:">
+            <p class="detail">{{modalInfo.user_name}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="备注:">
+            <p class="detail">{{modalInfo.remark}}</p>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <hr>
+
+      <b-row>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="CPU:">
+            <p class="detail">{{modalInfo.CPU}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="硬盘:">
+            <p class="detail">{{modalInfo.HDD}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="内存:">
+            <p class="detail">{{modalInfo.MEMORY}}</p>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="Mac地址:">
+            <p class="detail">{{modalInfo.mac_address}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="光驱:">
+            <p class="detail">{{modalInfo.cd_rom}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="屏幕尺寸:">
+            <p class="detail">{{modalInfo.screen_size}}</p>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="4">
+            <b-form-group label-cols-sm="3" label="部门:">
+            <p class="detail">{{modalInfo.department}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="课:">
+            <p class="detail">{{modalInfo.section_manager}}</p>
+          </b-form-group>
+        </b-col>
+        <b-col md="4">
+          <b-form-group label-cols-sm="3" label="供应商:">
+            <p class="detail">{{modalInfo.supplier}}</p>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
     </b-modal>
 
     <h3><b-badge variant="dark">查询结果</b-badge></h3>
-    <BootstrapTable ref="table" :columns="columns" :options="options"></BootstrapTable>
+    <BootstrapTable ref="table" :columns="columns" :options="options" @onClickRow="onClickRow"></BootstrapTable>
   </div>
 </template>
 
@@ -113,6 +239,9 @@
           status: null,
           depart: null,
           section: null
+        },
+        modalShow: false,
+        modalInfo: {
         },
         statusOptions: [
           { value: null, text: '请选择' },
@@ -184,10 +313,7 @@
           pageSize: 20,
           pageList: [10, 25, 50],
           queryParams: function(params) { return params },
-          onClickRow: function (row, $element, field) {
-
-            alert(1)
-          }
+          locale: 'zh-CN'
         }
       }
     },
@@ -213,9 +339,18 @@
         this.form.depart = null
         this.form.section = null
       },
-      test: function () {
-        alert(1)
+      onClickRow: function (row, $element) {
+        this.modalInfo = row;
+        this.modalShow = !this.modalShow
+
       }
   }
   }
 </script>
+
+<style>
+  .detail {
+    margin-top: 7px;
+  }
+
+</style>

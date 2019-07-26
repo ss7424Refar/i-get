@@ -5,6 +5,10 @@ import './jquery.js'
 import Vue from 'vue'
 import 'bootstrap'
 import 'bootstrap-table/dist/bootstrap-table.js'
+
+// import locale
+import 'bootstrap-table/dist/locale/bootstrap-table-zh-CN.js'
+
 import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js'
 
 Vue.component('BootstrapTable', BootstrapTable)
