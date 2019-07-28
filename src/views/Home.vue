@@ -1,32 +1,42 @@
 <template>
     <div class="home">
-      <p>graph will be here</p>
-      <div id="echartContainer" style="width:100%; height:500px"></div>
+
+        <b-row>
+            <b-alert show variant="warning">欢迎进入<i>mini v1.0</i>样机管理系统</b-alert>
+            <div id="chart" style="width:100%; height:500px"></div>
+        </b-row>
+        <hr>
+        <comment></comment>
     </div>
 
 </template>
 
 <script>
-  var echarts = require('echarts')
-  export default {
-    name: 'home',
-    mounted() {
-      // 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(document.getElementById('echartContainer'));
-      // 绘制图表
-      myChart.setOption({
-        title: { text: 'ECharts 入门示例' },
-        tooltip: {},
-        xAxis: {
-          data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+    import Comment from '@/components/home/Comment'
+
+      var echarts = require('echarts')
+      export default {
+        name: 'home',
+        mounted() {
+          // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('chart'));
+          // 绘制图表
+          myChart.setOption({
+            title: { text: '例年机型数量统计' },
+            tooltip: {},
+            xAxis: {
+              data: ["2013","2014","2015","2016","2017","2018","2019"]
+            },
+            yAxis: {},
+            series: [{
+              name: '总量',
+              type: 'bar',
+              data: [500, 203, 362, 105, 688, 210, 450]
+            }]
+          });
         },
-        yAxis: {},
-        series: [{
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
-      });
-    }
+        components: {
+            Comment
+        }
   }
 </script>

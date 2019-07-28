@@ -86,6 +86,13 @@
 
     <hr>
 
+    <div id="toolbar">
+      <h3>
+        <b-badge variant="dark">查询结果</b-badge>
+        <b-button variant="outline-primary" class="toolButton" @click="outPut">导出</b-button>
+      </h3>
+    </div>
+
     <b-modal v-model="modalShow" size="xl" title="具体信息" ok-only>
       <b-row>
         <b-col md="4">
@@ -220,7 +227,6 @@
 
     </b-modal>
 
-    <h3><b-badge variant="dark">查询结果</b-badge></h3>
     <BootstrapTable ref="table" :columns="columns" :options="options" @onClickRow="onClickRow"></BootstrapTable>
   </div>
 </template>
@@ -313,7 +319,8 @@
           pageSize: 20,
           pageList: [10, 25, 50],
           queryParams: function(params) { return params },
-          locale: 'zh-CN'
+          locale: 'zh-CN',
+          toolbar: '#toolbar'
         }
       }
     },
@@ -343,6 +350,17 @@
         this.modalInfo = row;
         this.modalShow = !this.modalShow
 
+      },
+      outPut: function () {
+        let formData = JSON.stringify(this.form)
+        window.location.href = 'http://localhost/ats-rebuild/services/MachineSever/outputExcel?' + 'formData=' + formData
+
+        this.$bvToast.toast('导出成功!', {
+          title: `提示`,
+          variant: 'primary',
+          // autoHideDelay: 5000,
+          solid: true
+        })
       }
   }
   }
@@ -352,5 +370,7 @@
   .detail {
     margin-top: 7px;
   }
-
+  .toolButton {
+    margin-left: 20px;
+  }
 </style>

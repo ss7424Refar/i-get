@@ -14,11 +14,11 @@
       return {
         navLists: [
           {
-            "text" : "Home",
+            "text" : "首页",
             "link" : "/"
           },
           {
-            "text" : "Main",
+            "text" : "主界面",
             "link" : "/main"
           }
         ],
