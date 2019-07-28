@@ -232,6 +232,7 @@
 </template>
 
 <script>
+  console.log(process.env.VUE_APP_BASE_API)
   export default {
     data () {
       return {
@@ -312,7 +313,7 @@
           // search: true,
           // showColumns: true,
           classes: 'table table-bordered table-hover table-striped table-sm',
-          url: 'http://localhost/ats-rebuild/services/MachineSever/getMachineList',
+          url: process.env.VUE_APP_BASE_API + '/services/MachineSever/getMachineList',
           sidePagination: 'server',
           pagination: 'true',
           pageNumber:1,
@@ -353,9 +354,9 @@
       },
       outPut: function () {
         let formData = JSON.stringify(this.form)
-        window.location.href = 'http://localhost/ats-rebuild/services/MachineSever/outputExcel?' + 'formData=' + formData
+        window.location.href = process.env.VUE_APP_BASE_API + '/services/MachineSever/outputExcel?' + 'formData=' + formData
 
-        this.$bvToast.toast('导出成功!', {
+        this.$bvToast.toast('请耐心等待导出结果!', {
           title: `提示`,
           variant: 'primary',
           // autoHideDelay: 5000,
