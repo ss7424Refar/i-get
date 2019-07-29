@@ -5,10 +5,10 @@
 
 
 ### 关于同域名多工程目录
-1. vue@cli配置publicPath . 当为生产环境时候路径变为/spa/
-2. ngnix配置如下, 访问localhost/spa/
+1. vue@cli配置publicPath . 当为生产环境时候路径变为/itd-spa/
+2. ngnix配置如下, 访问localhost/itd-spa/
    ```
-    location /spa {
-        try_files $uri $uri/ /spa/index.html;
+    location /itd-spa {
+        try_files $uri $uri/ /itd-spa/index.html;
     }
    ```
