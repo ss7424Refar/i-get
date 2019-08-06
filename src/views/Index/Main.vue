@@ -289,6 +289,10 @@
           {
             field: 'MODEL_NAME',
             title: '资产名称'
+          },
+          {
+            field: 'CPU',
+            title: 'CPU'
           }, {
             field: 'model_status',
             title: '状态'
