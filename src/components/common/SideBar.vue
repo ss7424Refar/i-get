@@ -15,11 +15,11 @@
         navLists: [
           {
             "text" : "首页",
-            "link" : "/"
+            "link" : "/index/home"
           },
           {
             "text" : "主界面",
-            "link" : "/main"
+            "link" : "/index/main"
           }
         ],
         activeIndex : 0

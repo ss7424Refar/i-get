@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-
         <b-row>
             <b-alert show variant="warning">欢迎进入<i>mini v1.0</i>样机管理系统</b-alert>
             <div id="chart" style="width:100%; height:500px"></div>
