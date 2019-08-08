@@ -6,17 +6,27 @@
         I-get
       </b-navbar-brand>
 
-      <!--<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>-->
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
 
-      <b-collapse id="nav-collapse" is-nav>
-      </b-collapse>
+        <b-nav-item-dropdown right>
+          <!-- Using 'button-content' slot -->
+          <template slot="button-content">Hello! &nbsp;{{getUser}} </template>
+          <b-dropdown-item href="/">Sign Out</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
     </b-navbar>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Head'
+    name: 'Head',
+    computed: {
+      getUser: function () {
+          return localStorage.getItem('user')
+      }
+    }
   }
 </script>
 
