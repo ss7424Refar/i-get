@@ -29,7 +29,6 @@
     },
     methods: {
       signOut: function () {
-        alert(1)
         localStorage.clear() // 清除所有数据
         this.$router.push({ path: '/'})
       }

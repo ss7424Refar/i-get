@@ -233,9 +233,7 @@
 
 <script>
   console.log(process.env.VUE_APP_BASE_API)
-  function cancel() {
-    alert(1)
-  }
+  // import test from '@/plugins/base.js'
   export default {
     data () {
       return {
@@ -319,17 +317,16 @@
             title: '操作',
             formatter: function (value, row) {
               var flag = row['op'];
+
               if ('apply' === flag) {
-                return `<button onclick="cancel()">取消申请</button>`
+                return '<a onclick="cancel()">取消申请</a>'
               }else {
-                return '<a href="#">aaaaa</a>'
+                return '<a href="#">-</a>'
               }
             }
           }
         ],
         options: {
-          // search: true,
-          // showColumns: true,
           classes: 'table table-bordered table-hover table-striped table-sm',
           url: process.env.VUE_APP_BASE_API + '/services/MachineSever/getMachineList',
           sidePagination: 'server',
@@ -372,7 +369,6 @@
       onDblClickRow: function (row, $element) {
         this.modalInfo = row;
         this.modalShow = !this.modalShow
-
       },
       outPut: function () {
         let formData = JSON.stringify(this.form)
@@ -384,11 +380,11 @@
           // autoHideDelay: 5000,
           solid: true
         })
-      },
-      cancel: function () {
-        alert(1)
       }
+    }
   }
+  function cancel() {
+    alert(1)
   }
 </script>
 
