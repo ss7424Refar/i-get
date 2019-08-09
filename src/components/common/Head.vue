@@ -8,12 +8,12 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template slot="button-content">Hello! &nbsp;{{getUser}} </template>
-          <b-dropdown-item href="/">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
+        <b-nav right>
+          <b-nav-item>Hello! &nbsp;{{getUser}} </b-nav-item>
+          <b-nav-form>
+            <b-button @click="signOut" variant="dark" size="sm">Sign Out </b-button>
+          </b-nav-form>
+        </b-nav>
       </b-navbar-nav>
     </b-navbar>
   </div>
@@ -25,6 +25,13 @@
     computed: {
       getUser: function () {
           return localStorage.getItem('user')
+      }
+    },
+    methods: {
+      signOut: function () {
+        alert(1)
+        localStorage.clear() // 清除所有数据
+        this.$router.push({ path: '/'})
       }
     }
   }

@@ -227,12 +227,15 @@
 
     </b-modal>
 
-    <BootstrapTable ref="table" :columns="columns" :options="options" @onClickRow="onClickRow"></BootstrapTable>
+    <BootstrapTable ref="table" :columns="columns" :options="options" @onDblClickRow="onDblClickRow"></BootstrapTable>
   </div>
 </template>
 
 <script>
   console.log(process.env.VUE_APP_BASE_API)
+  function cancel() {
+    alert(1)
+  }
   export default {
     data () {
       return {
@@ -311,6 +314,17 @@
           }, {
             field: 'predict_date',
             title: '预计归还时间'
+          }, {
+            field: 'op',
+            title: '操作',
+            formatter: function (value, row) {
+              var flag = row['op'];
+              if ('apply' === flag) {
+                return `<button onclick="cancel()">取消申请</button>`
+              }else {
+                return '<a href="#">aaaaa</a>'
+              }
+            }
           }
         ],
         options: {
@@ -323,7 +337,10 @@
           pageNumber:1,
           pageSize: 20,
           pageList: [10, 25, 50],
-          queryParams: function(params) { return params },
+          queryParams: function(params) {
+            params.userId = localStorage.getItem('userId')
+            return params
+          },
           locale: 'zh-CN',
           toolbar: '#toolbar'
         }
@@ -335,6 +352,7 @@
 
         let formData = JSON.stringify(this.form)
         this.options.queryParams = function (params) {
+          params.userId = localStorage.getItem('userId')
           params.formData = formData
           return params
         }
@@ -351,7 +369,7 @@
         this.form.depart = null
         this.form.section = null
       },
-      onClickRow: function (row, $element) {
+      onDblClickRow: function (row, $element) {
         this.modalInfo = row;
         this.modalShow = !this.modalShow
 
@@ -366,6 +384,9 @@
           // autoHideDelay: 5000,
           solid: true
         })
+      },
+      cancel: function () {
+        alert(1)
       }
   }
   }

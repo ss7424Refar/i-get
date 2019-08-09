@@ -57,6 +57,7 @@
                         this.validationPassword = false
                     } else if ('301' === response.data.code) {
                         localStorage.setItem('user', response.data.data);
+                        localStorage.setItem('userId', this.loginInfo.user);
                         this.$router.push({ name: 'home'})
                     }
                   }).catch((error) =>{
