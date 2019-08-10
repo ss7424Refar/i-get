@@ -3,11 +3,11 @@
 
 ### 界面
 
-![登录界面](/home/refar/WebstormProjects/i-get/doc/img/login.png)
+![登录界面](./doc/img/login.png)
 
-![首页](/home/refar/WebstormProjects/i-get/doc/img/home.png)
+![首页](./doc/img/home.png)
 
-![主界面](/home/refar/WebstormProjects/i-get/doc/img/main.png)
+![主界面](./doc/img/main.png)
 
 
 
