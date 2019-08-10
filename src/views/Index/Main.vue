@@ -89,7 +89,11 @@
     <div id="toolbar">
       <h3>
         <b-badge variant="dark">查询结果</b-badge>
-        <b-button variant="outline-primary" class="toolButton" @click="outPut">导出</b-button>
+        <b-button-group>
+            <b-button variant="outline-primary" class="toolButton" @click="apply">申请</b-button>
+            <b-button variant="outline-primary" @click="outPut">导出</b-button>
+            <b-button variant="outline-primary" @click="refresh">刷新</b-button>
+        </b-button-group>
       </h3>
     </div>
 
@@ -233,7 +237,6 @@
 
 <script>
   console.log(process.env.VUE_APP_BASE_API)
-  // import test from '@/plugins/base.js'
   export default {
     data () {
       return {
@@ -284,6 +287,10 @@
         ],
         columns: [
           {
+            field: 'state',
+            checkbox: true
+          },
+          {
             field: 'fixed_no',
             title: '资产编号'
           },
@@ -319,9 +326,14 @@
               var flag = row['op'];
 
               if ('apply' === flag) {
-                return '<a onclick="cancel()">取消申请</a>'
+                return '<a href="javascript:" class="cancel">取消申请</a>'
               }else {
                 return '<a href="#">-</a>'
+              }
+            },
+            events: {
+              'click .cancel': (e, value, row) => {
+                this.cancel(row)
               }
             }
           }
@@ -370,21 +382,84 @@
         this.modalInfo = row;
         this.modalShow = !this.modalShow
       },
+      apply: function() {
+          let selection = this.$refs.table.getSelections();
+
+          if (0 == selection.length) {
+              this.message('请选择至少一个项目')
+          }
+
+          let checkOn = false
+          for (let i = 0; i < selection.length; i++) {
+            let status = selection[i].model_status
+
+              if ('在库' !== status) {
+                  checkOn = true
+                  break
+              }
+
+          }
+
+          if (checkOn) {
+              this.message('请选择【在库】机型进行申请')
+              return false
+          }
+
+          this.$http({
+              method:'post',
+              data: {selection: JSON.stringify(selection), userId: localStorage.getItem('userId')},
+              url: process.env.VUE_APP_BASE_API + '/services/MachineSever/apply'
+          }).then((response) =>{
+              response = response.data
+              if ('done' === response) {
+                  this.message('申请成功')
+              } else {
+                  this.message('申请失败')
+              }
+              this.$refs.table.refresh()
+          }).catch((error) =>{
+              this.message('申请失败')
+              console.log(error);
+              this.$refs.table.refresh()
+          })
+      },
       outPut: function () {
         let formData = JSON.stringify(this.form)
         window.location.href = process.env.VUE_APP_BASE_API + '/services/MachineSever/outputExcel?' + 'formData=' + formData
+        this.message('请耐心等待导出结果!')
 
-        this.$bvToast.toast('请耐心等待导出结果!', {
-          title: `提示`,
-          variant: 'primary',
-          // autoHideDelay: 5000,
-          solid: true
-        })
+      },
+       refresh:function () {
+           this.$refs.table.refresh();
+       },
+      cancel: function (row) {
+          this.$http({
+              method:'post',
+              data: {no: row['fixed_no'], userId: localStorage.getItem('userId')},
+              url: process.env.VUE_APP_BASE_API + '/services/MachineSever/cancel'
+          }).then((response) =>{
+              response = response.data
+              if ('done' === response) {
+                  this.message('取消申请成功')
+              } else {
+                  this.message('取消申请失败')
+              }
+              this.$refs.table.refresh()
+          }).catch((error) =>{
+              this.message('取消申请失败')
+              console.log(error);
+              this.$refs.table.refresh()
+          })
+      },
+      message: function (msg) {
+          this.$bvToast.toast(msg, {
+              title: `提示`,
+              variant: 'primary',
+              // autoHideDelay: 5000,
+              solid: true
+          })
       }
     }
-  }
-  function cancel() {
-    alert(1)
   }
 </script>
 
@@ -393,6 +468,6 @@
     margin-top: 7px;
   }
   .toolButton {
-    margin-left: 20px;
+    margin-left: 15px;
   }
 </style>

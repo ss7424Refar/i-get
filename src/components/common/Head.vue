@@ -11,7 +11,7 @@
         <b-nav right>
           <b-nav-item>Hello! &nbsp;{{getUser}} </b-nav-item>
           <b-nav-form>
-            <b-button @click="signOut" variant="dark" size="sm">Sign Out </b-button>
+            <b-button @click="signOut" variant="dark" size="sm">注销 </b-button>
           </b-nav-form>
         </b-nav>
       </b-navbar-nav>

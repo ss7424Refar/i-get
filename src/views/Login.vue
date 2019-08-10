@@ -48,7 +48,7 @@
                     url: process.env.VUE_APP_BASE_API + '/services/MachineSever/loginCheck'
                   }).then((response) =>{
                     //这里使用了ES6的语法
-                      console.log(response.data.data)
+                    //   console.log(response.data.data)
 
                     this.reset()
                     if ('101' === response.data.code) {
