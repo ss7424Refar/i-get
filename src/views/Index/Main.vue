@@ -231,13 +231,16 @@
 
     </b-modal>
 
-    <BootstrapTable ref="table" :columns="columns" :options="options" @onDblClickRow="onDblClickRow"></BootstrapTable>
+    <BootstrapTable ref="table" :columns="columns" :options="options" @onPostBody="vueFormatterPostBody" @onDblClickRow="onDblClickRow"></BootstrapTable>
   </div>
 </template>
 
 <script>
-  console.log(process.env.VUE_APP_BASE_API)
+  // console.log(process.env.VUE_APP_BASE_API)
+
+  import tableMixin from '@/mixins/table'
   export default {
+    mixins: [tableMixin],
     data () {
       return {
         form: {
@@ -322,19 +325,35 @@
           }, {
             field: 'op',
             title: '操作',
-            formatter: function (value, row) {
-              var flag = row['op'];
+            // formatter: function (value, row) {
+            //   var flag = row['op'];
+            //
+            //   if ('apply' === flag) {
+            //     return '<a href="javascript:" class="cancel">取消申请</a>'
+            //   }else {
+            //     return '<a href="#">-</a>'
+            //   }
+            // },
+            // events: {
+            //   'click .cancel': (e, value, row) => {
+            //     this.cancel(row)
+            //   }
+            // }
+            formatter: (value, row) => {
 
+              var flag = row['op'];
               if ('apply' === flag) {
-                return '<a href="javascript:" class="cancel">取消申请</a>'
+                return this.vueFormatter({
+                  template: '<b-button variant="outline-primary" @click="cancel(row)">取消申请</b-button>',
+                  data: { row },
+                  methods: {
+                    cancel: this.cancel
+                  }
+                })
               }else {
                 return '<a href="#">-</a>'
               }
-            },
-            events: {
-              'click .cancel': (e, value, row) => {
-                this.cancel(row)
-              }
+
             }
           }
         ],

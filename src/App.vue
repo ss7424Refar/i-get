@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <b-container-fluid>
+    <b-container fluid>
       <router-view/>
-    </b-container-fluid>
+      <!--<HelloWorld msg="Welcome to Bootstrap Table App"/>-->
+    </b-container>
   </div>
 </template>
 
 <script>
+  import HelloWorld from '@/components/HelloWorld.vue'
   export default {
-    name: 'App'
+    name: 'App',
+    components: {
+      HelloWorld
+    }
   }
 </script>
