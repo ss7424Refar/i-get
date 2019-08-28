@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from './views/Login.vue'
 import Index from './views/Index.vue'
 import Home from './views/Index/Home.vue'
+import Insert from './views/Index/Insert.vue'
 
 Vue.use(Router)
 
@@ -32,8 +33,16 @@ const router = new Router({
           path:'main',
           name: 'main',
           component: function () {
-            return import(/* webpackChunkName: "about" */ './views/Index/Main.vue')
+            return import('./views/Index/Main.vue')
           }
+        },    //定义默认显示子组件
+        {
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          path:'insert',
+          name: 'insert',
+          component: Insert
         }
       ]
     }

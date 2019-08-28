@@ -92,6 +92,7 @@
         <b-button-group>
             <b-button variant="outline-primary" class="toolButton" @click="apply">申请</b-button>
             <b-button variant="outline-primary" @click="outPut">导出</b-button>
+            <b-button variant="outline-primary" :to="'insert'">导入</b-button>
             <b-button variant="outline-primary" @click="refresh">刷新</b-button>
         </b-button-group>
       </h3>
@@ -325,20 +326,6 @@
           }, {
             field: 'op',
             title: '操作',
-            // formatter: function (value, row) {
-            //   var flag = row['op'];
-            //
-            //   if ('apply' === flag) {
-            //     return '<a href="javascript:" class="cancel">取消申请</a>'
-            //   }else {
-            //     return '<a href="#">-</a>'
-            //   }
-            // },
-            // events: {
-            //   'click .cancel': (e, value, row) => {
-            //     this.cancel(row)
-            //   }
-            // }
             formatter: (value, row) => {
 
               var flag = row['op'];
@@ -406,6 +393,7 @@
 
           if (0 == selection.length) {
               this.message('请选择至少一个项目')
+              return false
           }
 
           let checkOn = false
