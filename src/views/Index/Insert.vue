@@ -14,7 +14,7 @@
                     </b-form-text>
                     <hr>
                     <b-button variant="primary" @click="insert">批量插入</b-button>
-                    <b-button variant="danger" class="marginB">重置</b-button>
+                    <b-button variant="danger" class="marginB" @click="onReset">重置</b-button>
                     <b-button variant="outline-primary" class="marginB">发送邮件</b-button>
                 </b-form>
             </b-col>
@@ -41,19 +41,21 @@
             insert: function () {
                 let formData = new FormData();
                 formData.append("excel", this.file); //加入文件对象
-                console.log(formData)
-                this.$http({
-                    method:'post',
-                    data: {
-                        headers: { "Content-Type": "multipart/form-data" },
-                        formData1: formData
-                    },
-                    url: process.env.VUE_APP_BASE_API + '/services/MachineSever/input'
-                }).then((response) =>{
-                    console.log(response)
+                const config = {
+                    headers: { "Content-Type": "multipart/form-data" }
+                };
+                this.$http.post(
+                    process.env.VUE_APP_BASE_API + '/services/MachineSever/input',
+                    formData,
+                    config
+                ).then(res => {
+                    console.log(res);
                 }).catch((error) =>{
                     console.log(error);
-                })
+                });
+            },
+            onReset: function () {
+                this.file = null
             }
         }
     }
