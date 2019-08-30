@@ -6,7 +6,7 @@
             <b-col md="6">
                 <b-form>
                     <label for="excel">Excel的路径: </label>
-                    <b-form-file v-model="file" :state="Boolean(file)" id="excel" aria-describedby="excel-help-block">
+                    <b-form-file v-model="file" id="excel" aria-describedby="excel-help-block" accept=".xls, .xlsx">
 
                     </b-form-file>
                     <b-form-text id="excel-help-block">
@@ -19,8 +19,9 @@
                 </b-form>
             </b-col>
             <b-col md="5">
-                <b-card header="导入结果统计" class="panel" border-variant="secondary" header-border-variant="secondary">
-                    <pre>{{ result }}</pre>
+                <b-card header="导入结果统计" class="panel" border-variant="secondary" header-border-variant="secondary"
+                        :title="msg">
+                    <pre>{{ detail }}</pre>
                 </b-card>
             </b-col>
             <b-col md="1"></b-col>
@@ -34,11 +35,16 @@
         data () {
             return {
                 file: null,
-                result: '暂无'
+                detail: '暂无',
+                msg: ''
             }
         },
         methods: {
             insert: function () {
+                if (!this.file) {
+                    this.message('请选择Excel文件')
+                    return false
+                }
                 let formData = new FormData();
                 formData.append("excel", this.file); //加入文件对象
                 const config = {
@@ -49,13 +55,27 @@
                     formData,
                     config
                 ).then(res => {
-                    console.log(res);
+                    res = res.data
+                    this.msg = res.msg
+                    this.detail = res.detail
+
                 }).catch((error) =>{
+                    this.message('服务器内部错误(500)')
                     console.log(error);
                 });
             },
             onReset: function () {
                 this.file = null
+                this.msg = ''
+                this.detail = '暂无'
+            },
+            message: function (msg) {
+                this.$bvToast.toast(msg, {
+                    title: `提示`,
+                    variant: 'primary',
+                    // autoHideDelay: 5000,
+                    solid: true
+                })
             }
         }
     }
