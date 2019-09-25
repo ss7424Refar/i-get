@@ -75,6 +75,15 @@
         </b-col>
       </b-row>
       <b-row>
+        <b-col md="4">
+          <b-form-group label-cols-sm="2" label="CPU:">
+            <b-input-group>
+              <b-form-input v-model="form.cpu"></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
         <b-col offset-md="4">
           <b-button variant="info" type="submit">查询</b-button>
         </b-col>
@@ -253,7 +262,8 @@
           location: null,
           status: null,
           depart: null,
-          section: null
+          section: null,
+          cpu: null
         },
         modalShow: false,
         modalInfo: {
