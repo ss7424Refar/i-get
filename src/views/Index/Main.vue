@@ -393,6 +393,7 @@
         this.form.status = null
         this.form.depart = null
         this.form.section = null
+        this.form.cpu = null
       },
       onDblClickRow: function (row, $element) {
         this.modalInfo = row;
